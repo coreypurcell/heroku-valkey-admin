@@ -18,7 +18,7 @@ Create the admin app with the button, then attach the Key-Value Store from the a
 heroku addons:attach source-app::REDIS --as REDIS -a customer-valkey-admin
 ```
 
-The attached `REDIS_URL` automatically supplies the host, port, password, database, and TLS configuration. The wrapper disables certificate verification because Heroku Key-Value Store uses self-signed certificates.
+The attached `REDIS_URL` automatically supplies the host, port, password, database, and TLS configuration, then opens the connection in Valkey Admin. The password remains inside the server and is never sent to the browser. The wrapper disables certificate verification because Heroku Key-Value Store uses self-signed certificates.
 
 Open the app and sign in with `ADMIN_USERNAME` and `ADMIN_PASSWORD` from the app's Config Vars. Change either value to rotate the Basic Auth credentials. The app refuses to start if either value is empty.
 
@@ -50,8 +50,8 @@ Valkey Admin has no built-in authentication or role-based access controls. This 
 
 ## Maintenance
 
-Dependabot checks the pinned `valkey/valkey-admin` Docker image weekly and opens one pull request for an upstream update after a seven-day cooldown. CI builds an AMD64 image and verifies authenticated access before the update is merged.
+Dependabot checks the pinned Valkey Admin source version weekly and opens one pull request for an upstream update after a seven-day cooldown. CI builds an AMD64 image and verifies authenticated access before the update is merged.
 
-The wrapper uses the Node runtime already included in Valkey Admin's image. Its Node updates arrive with the reviewed upstream Valkey Admin image update; this repository has no separate Node image or npm dependencies to maintain.
+This template builds the pinned upstream source to add the runtime bootstrap endpoint required for `REDIS_URL` auto-connection. Review each Dependabot update because the small bootstrap patch must apply cleanly. Dependabot also tracks the Node image used for the build and runtime.
 
 Valkey Admin is licensed under [Apache-2.0](https://github.com/valkey-io/valkey-admin/blob/main/LICENSE).
