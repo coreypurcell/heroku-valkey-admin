@@ -4,6 +4,11 @@
   "repository": "https://github.com/coreypurcell/heroku-valkey-admin",
   "keywords": ["valkey", "redis", "heroku", "admin"],
   "stack": "container",
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
   "env": {
     "ADMIN_USERNAME": {
       "description": "Username required to access Valkey Admin.",

@@ -4,6 +4,8 @@
 
 Deploys [Valkey Admin](https://github.com/valkey-io/valkey-admin) behind HTTP Basic Authentication.
 
+The button creates one `web` dyno. It does not create a Key-Value Store; attach the existing customer instance after deployment.
+
 ## Connect a Heroku Key-Value Store
 
 Create the admin app with the button, then attach the Key-Value Store from the application that owns it:
