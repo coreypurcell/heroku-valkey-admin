@@ -48,6 +48,14 @@ await update(
 
 await update(
   'apps/server/src/index.ts',
+  `  if (preConfiguredConnection) {
+    startPreconfiguredMetricsServers()
+  }
+`,
+  '',
+)
+await update(
+  'apps/server/src/index.ts',
   '// Fallback to index.html for SPA routing',
   `app.get("/bootstrap", (_req: Request, res: Response) => {
   if (!preConfiguredConnection) {

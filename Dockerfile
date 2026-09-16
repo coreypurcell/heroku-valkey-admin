@@ -22,6 +22,9 @@ WORKDIR /app
 ENV DEPLOYMENT_MODE=Web
 ENV NODE_ENV=production
 
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates \
+  && rm -rf /var/lib/apt/lists/*
+
 COPY --from=builder /build/package.json /build/package-lock.json ./
 COPY --from=builder /build/apps/server/package.json ./apps/server/
 COPY --from=builder /build/common/package.json ./common/
