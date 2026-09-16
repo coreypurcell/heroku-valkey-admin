@@ -4,7 +4,7 @@ ARG VALKEY_ADMIN_VERSION=1.1.1
 
 WORKDIR /build
 
-RUN apt-get update && apt-get install -y --no-install-recommends curl patch \
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates curl patch \
   && rm -rf /var/lib/apt/lists/* \
   && curl --location --fail --silent --show-error "https://github.com/valkey-io/valkey-admin/archive/refs/tags/v${VALKEY_ADMIN_VERSION}.tar.gz" \
   | tar --extract --gzip --strip-components=1
