@@ -48,6 +48,11 @@ await update(
 
 await update(
   'apps/server/src/index.ts',
+  '  startPreconfiguredMetricsServers,\n',
+  '',
+)
+await update(
+  'apps/server/src/index.ts',
   `  if (preConfiguredConnection) {
     startPreconfiguredMetricsServers()
   }
