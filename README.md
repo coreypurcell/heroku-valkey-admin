@@ -4,7 +4,11 @@
 
 Deploys [Valkey Admin](https://github.com/valkey-io/valkey-admin) behind HTTP Basic Authentication.
 
-The button creates one `web` dyno. It does not create a Key-Value Store; attach the existing customer instance after deployment.
+The button creates one `web` dyno. It does not create a Key-Value Store; attach the existing customer instance after deployment. Before using the button, generate a password and paste it into the required `ADMIN_PASSWORD` field:
+
+```sh
+openssl rand -hex 32
+```
 
 ## Connect a Heroku Key-Value Store
 
@@ -16,7 +20,7 @@ heroku addons:attach source-app::REDIS --as REDIS -a customer-valkey-admin
 
 The attached `REDIS_URL` automatically supplies the host, port, password, database, and TLS configuration. The wrapper disables certificate verification because Heroku Key-Value Store uses self-signed certificates.
 
-Open the app and sign in with `ADMIN_USERNAME` and `ADMIN_PASSWORD` from the app's Config Vars. Change either value to rotate the Basic Auth credentials.
+Open the app and sign in with `ADMIN_USERNAME` and `ADMIN_PASSWORD` from the app's Config Vars. Change either value to rotate the Basic Auth credentials. The app refuses to start if either value is empty.
 
 ## Security
 

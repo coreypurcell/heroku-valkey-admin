@@ -15,8 +15,7 @@
       "value": "admin"
     },
     "ADMIN_PASSWORD": {
-      "description": "Password required to access Valkey Admin.",
-      "generator": "secret"
+      "description": "A unique random password required to access Valkey Admin. Generate one with: openssl rand -hex 32"
     }
   }
 }
