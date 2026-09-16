@@ -48,6 +48,11 @@ await update(
 
 await update(
   'apps/server/src/index.ts',
+  'const app = express()\n',
+  'const app = express()\napp.set("trust proxy", 1)\n',
+)
+await update(
+  'apps/server/src/index.ts',
   '  startPreconfiguredMetricsServers,\n',
   '',
 )
