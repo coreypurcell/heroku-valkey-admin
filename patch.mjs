@@ -50,7 +50,10 @@ await update(
   'apps/server/src/index.ts',
   '// Fallback to index.html for SPA routing',
   `app.get("/bootstrap", (_req: Request, res: Response) => {
-  if (!preConfiguredConnection) return res.sendStatus(204)
+  if (!preConfiguredConnection) {
+    res.sendStatus(204)
+    return
+  }
   const { password, ...connectionDetails } = initialConnectionDetails
   res.json(connectionDetails)
 })
