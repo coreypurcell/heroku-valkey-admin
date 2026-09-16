@@ -1,4 +1,4 @@
-FROM node:22-bookworm-slim AS builder
+FROM node:26-bookworm-slim AS builder
 
 ARG VALKEY_ADMIN_VERSION=1.1.1
 
@@ -15,7 +15,7 @@ RUN node /tmp/patch.mjs \
   && npm ci \
   && npm run build:all
 
-FROM node:22-bookworm-slim
+FROM node:26-bookworm-slim
 
 WORKDIR /app
 
