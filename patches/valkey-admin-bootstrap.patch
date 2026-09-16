@@ -1,7 +1,6 @@
 diff --git a/apps/frontend/src/state/epics/valkeyEpics.ts b/apps/frontend/src/state/epics/valkeyEpics.ts
 --- a/apps/frontend/src/state/epics/valkeyEpics.ts
 +++ b/apps/frontend/src/state/epics/valkeyEpics.ts
-@@ -1,3 +1,3 @@
 @@ -100,6 +100,23 @@ export const connectionEpic = (store: Store) =>
        select(wsConnectFulfilled),
        take(1),
