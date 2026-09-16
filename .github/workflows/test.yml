@@ -1,0 +1,16 @@
+name: Test
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build --platform linux/amd64 -t heroku-valkey-admin .
+      - run: docker run -d --name valkey-admin -p 3000:3000 -e PORT=3000 -e ADMIN_USERNAME=admin -e ADMIN_PASSWORD=password heroku-valkey-admin
+      - run: timeout 30 sh -c 'until curl --fail --silent --user admin:password http://localhost:3000/ >/dev/null; do sleep 1; done'
+      - run: test "$(curl --silent --output /dev/null --write-out '%{http_code}' http://localhost:3000/)" = 401

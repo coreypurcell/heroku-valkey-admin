@@ -1,0 +1,17 @@
+{
+  "name": "Valkey Admin",
+  "description": "An authenticated web UI for a Heroku Key-Value Store instance.",
+  "repository": "https://github.com/coreypurcell/heroku-valkey-admin",
+  "keywords": ["valkey", "redis", "heroku", "admin"],
+  "stack": "container",
+  "env": {
+    "ADMIN_USERNAME": {
+      "description": "Username required to access Valkey Admin.",
+      "value": "admin"
+    },
+    "ADMIN_PASSWORD": {
+      "description": "Password required to access Valkey Admin.",
+      "generator": "secret"
+    }
+  }
+}
