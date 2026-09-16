@@ -1,7 +1,8 @@
 diff --git a/apps/frontend/src/state/epics/valkeyEpics.ts b/apps/frontend/src/state/epics/valkeyEpics.ts
 --- a/apps/frontend/src/state/epics/valkeyEpics.ts
 +++ b/apps/frontend/src/state/epics/valkeyEpics.ts
-@@ -69,6 +69,23 @@ export const connectionEpic = (store: Store) =>
+@@ -1,3 +1,3 @@
+@@ -100,6 +100,23 @@ export const connectionEpic = (store: Store) =>
        select(wsConnectFulfilled),
        take(1),
        tap(() => {
@@ -33,14 +34,15 @@ diff --git a/apps/server/src/actions/connection.ts b/apps/server/src/actions/con
  import { EndpointType, toNodeId } from "valkey-common"
  import { VALKEY } from "valkey-common"
  import { connectToValkey, teardownConnection  } from "../connection"
-@@ -20,6 +21,7 @@ type ConnectPayload = {
+@@ -20,6 +21,7 @@
+ type ConnectPayload = {
    connectionDetails: ConnectionDetails,
    connectionId: string,
 +  usePreconfiguredConnection?: boolean,
    isRetry?: boolean,
    isResume?: boolean,
  }
-@@ -29,7 +31,13 @@ export const connectPending = withDeps<Deps, void>(
+@@ -38,10 +40,16 @@ export const connectPending = withDeps<Deps, void>(
        return
      }
  
@@ -49,15 +51,17 @@ diff --git a/apps/server/src/actions/connection.ts b/apps/server/src/actions/con
 +      : payload.connectionDetails
 +
      const client = await connectToValkey(
-       { clients, connectedNodesByCluster, metricsServerMap, clusterNodesRegistry },
+       { clients, connectedNodesByCluster, clusterNodesRegistry, metricsServerMap },
        ws,
 -      payload,
 +      { ...payload, connectionDetails },
      )
+ 
+     if (client) {
 diff --git a/apps/server/src/index.ts b/apps/server/src/index.ts
 --- a/apps/server/src/index.ts
 +++ b/apps/server/src/index.ts
-@@ -77,6 +77,18 @@ app.use(express.json())
+@@ -80,6 +80,18 @@
  const metricsRouter = createMetricsOrchestratorRouter()
  app.use("/orchestrator", metricsRouter)
  
