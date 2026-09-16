@@ -21,7 +21,7 @@ const valkeyEnvironment = () => {
   if (!['redis:', 'rediss:'].includes(url.protocol)) {
     throw new Error('REDIS_URL must use redis:// or rediss://')
   }
-  if (!url.hostname || !url.port || !/^\/(|\d+)$/.test(url.pathname)) {
+  if (!url.hostname || !url.port || !/^$|^\/(|\d+)$/.test(url.pathname)) {
     throw new Error('REDIS_URL must include a host, port, and optional numeric database')
   }
 
